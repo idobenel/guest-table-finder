@@ -9,12 +9,24 @@
 <body>
     <div class="container">
         <h1>סידור הושבה</h1>
-        <input type="text" id="nameInput" placeholder="הכנס את שם האורח">
+
+        <!-- Search type selection -->
+        <div>
+            <label>
+                <input type="radio" name="searchType" id="searchByName" checked> חפש לפי שם
+            </label>
+            <label>
+                <input type="radio" name="searchType" id="searchByTable" > חפש לפי מספר שולחן
+            </label>
+        </div>
+
+        <input type="text" id="nameInput" placeholder="הכנס את שם האורח או מספר שולחן">
         <button onclick="searchGuest()">חפש</button>
-        <button onclick="displayFullList()">הצג את כל הרשימה</button>
 
         <div id="result">
-
+            <p id="guestName">שם: </p>
+            <p id="tableNumber">מספר שולחן: </p>
+            <p id="guestCount">מספר אורחים: </p>
         </div>
     </div>
 

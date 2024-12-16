@@ -61,31 +61,46 @@ function searchGuest() {
     }
 }
 
-// Function to display the full sorted list of guests
-function displayFullList() {
+// Function to search for the guest by name or table number
+function searchGuest() {
+    const name = document.getElementById("nameInput").value.trim();
     const resultElement = document.getElementById("result");
+    const guestName = document.getElementById("guestName");
+    const tableNumber = document.getElementById("tableNumber");
+    const guestCount = document.getElementById("guestCount");
 
     // Reset result
-    resultElement.innerHTML = "";
+    guestName.textContent = "שם: ";
+    tableNumber.textContent = "מספר שולחן: ";
+    guestCount.textContent = "מספר אורחים: ";
 
-    // Sort guests by name or by table number
-    const sortedGuests = guests.sort((a, b) => {
-        const nameA = a.name.toLowerCase();
-        const nameB = b.name.toLowerCase();
-        if (nameA < nameB) return -1;  // Sort alphabetically by name
-        if (nameA > nameB) return 1;
-        return a.table_number - b.table_number;  // Fallback to sorting by table number if names are the same
-    });
+    if (name === "") {
+        alert("הכנס את שם האורח או מספר שולחן");
+        return;
+    }
 
-    // Display the sorted list
-    sortedGuests.forEach(guest => {
-        const guestDiv = document.createElement("div");
-        guestDiv.innerHTML = `
-            <p>שם: ${guest.name}</p>
-            <p>מספר שולחן: ${guest.table_number}</p>
-            <p>מספר אורחים: ${guest.number_of_guests}</p>
-            <br><br>
-        `;
-        resultElement.appendChild(guestDiv);  // Append to the result section
-    });
+    // Check which search type is selected
+    const searchByName = document.getElementById("searchByName").checked;
+    const searchByTable = document.getElementById("searchByTable").checked;
+
+    let guest;
+
+    if (searchByName) {
+        // Search by name
+        guest = guests.find(g => g.name.includes(name));
+    } else if (searchByTable) {
+        // Search by table number
+        const tableNumberSearch = parseInt(name, 10);
+        guest = guests.find(g => g.table_number === tableNumberSearch);
+    }
+
+    if (guest) {
+        guestName.textContent = "שם: " + guest.name;
+        tableNumber.textContent = "מספר שולחן: " + guest.table_number;
+        guestCount.textContent = "מספר אורחים: " + guest.number_of_guests;
+    } else {
+        guestName.textContent = "שם לא נמצא";
+        tableNumber.textContent = "לא נמצא מספר שולחן";
+        guestCount.textContent = "לא נמצאו מספר אורחים";
+    }
 }
