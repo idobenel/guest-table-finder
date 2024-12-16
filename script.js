@@ -21,12 +21,13 @@ const guests = [
 function searchGuest() {
     const name = document.getElementById("nameInput").value.trim();
     const resultElement = document.getElementById("result");
+    const guestName = document.getElementById("guestName");
     const tableNumber = document.getElementById("tableNumber");
     const guestCount = document.getElementById("guestCount");
-    const db_name = document.getElementById("db_name");
+
 
     // Reset result
-    db_name.textContent = "שם: ";
+    guestName.textContent = "שם: ";
     tableNumber.textContent = "מספר שולחן: ";
     guestCount.textContent = "מספר אורחים: ";
     
@@ -40,11 +41,11 @@ function searchGuest() {
     const guest = guests.find(g => (g.name).includes(name));
 
     if (guest) {
-        db_name.textContent = "שם: "; + guest.name;
+        guestName.textContent = "שם: "; + guest.name;
         tableNumber.textContent = "מספר שולחן: " + guest.table_number;
         guestCount.textContent = "מספר אורחים: " + guest.number_of_guests;
     } else {
-    	db_name.textContent = "שם לא נמצא";
+    	guestName.textContent = "שם לא נמצא";
         tableNumber.textContent = "לא נמצא מספר שולחן";
         guestCount.textContent = "לא נמצאו מספר אורחים";
     }
