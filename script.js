@@ -60,3 +60,32 @@ function searchGuest() {
         resultElement.appendChild(noMatchDiv);
     }
 }
+
+// Function to display the full sorted list of guests
+function displayFullList() {
+    const resultElement = document.getElementById("result");
+
+    // Reset result
+    resultElement.innerHTML = "";
+
+    // Sort guests by name or by table number
+    const sortedGuests = guests.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        if (nameA < nameB) return -1;  // Sort alphabetically by name
+        if (nameA > nameB) return 1;
+        return a.table_number - b.table_number;  // Fallback to sorting by table number if names are the same
+    });
+
+    // Display the sorted list
+    sortedGuests.forEach(guest => {
+        const guestDiv = document.createElement("div");
+        guestDiv.innerHTML = `
+            <p>שם: ${guest.name}</p>
+            <p>מספר שולחן: ${guest.table_number}</p>
+            <p>מספר אורחים: ${guest.number_of_guests}</p>
+            <br><br>
+        `;
+        resultElement.appendChild(guestDiv);  // Append to the result section
+    });
+}
