@@ -14,6 +14,11 @@ const guests = [
         "name": "אליהו הנביא",
         "table_number": 3,
         "number_of_guests": 2
+    },
+    {
+        "name": "אליהו התשבי",
+        "table_number": 5,
+        "number_of_guests": 1
     }
 ];
 
