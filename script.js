@@ -79,16 +79,15 @@ function searchGuest() {
         return;
     }
 
-    // Check which search type is selected
-    const searchByName = document.getElementById("searchByName").checked;
-    const searchByTable = document.getElementById("searchByTable").checked;
-
+    // Get selected search type from dropdown
+    const searchType = document.getElementById("searchType").value;
+    
     let guest;
 
-    if (searchByName) {
+    if (searchType === "name") {
         // Search by name
         guest = guests.find(g => g.name.includes(name));
-    } else if (searchByTable) {
+    } else if (searchType === "table") {
         // Search by table number
         const tableNumberSearch = parseInt(name, 10);
         guest = guests.find(g => g.table_number === tableNumberSearch);
@@ -103,4 +102,36 @@ function searchGuest() {
         tableNumber.textContent = "לא נמצא מספר שולחן";
         guestCount.textContent = "לא נמצאו מספר אורחים";
     }
+}
+
+// Function to display all guests sorted by name or table number
+function displayAllGuests() {
+    const resultElement = document.getElementById("result");
+    const guestName = document.getElementById("guestName");
+    const tableNumber = document.getElementById("tableNumber");
+    const guestCount = document.getElementById("guestCount");
+
+    // Reset result
+    guestName.textContent = "";
+    tableNumber.textContent = "";
+    guestCount.textContent = "";
+
+    // Sort guests by selected criteria (name or table number)
+    const sortBy = document.getElementById("searchType").value;
+    
+    let sortedGuests;
+    if (sortBy === "name") {
+        // Sort by name (in Hebrew order)
+        sortedGuests = guests.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "table") {
+        // Sort by table number
+        sortedGuests = guests.sort((a, b) => a.table_number - b.table_number);
+    }
+
+    // Display all guests
+    sortedGuests.forEach(guest => {
+        guestName.textContent += `שם: ${guest.name}\n`;
+        tableNumber.textContent += `מספר שולחן: ${guest.table_number}\n`;
+        guestCount.textContent += `מספר אורחים: ${guest.number_of_guests}\n\n`;
+    });
 }

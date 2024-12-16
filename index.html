@@ -10,18 +10,19 @@
     <div class="container">
         <h1>סידור הושבה</h1>
 
-        <!-- Search type selection -->
+        <!-- Dropdown for selecting search type -->
         <div>
-            <label>
-                <input type="radio" name="searchType" id="searchByName" checked> חפש לפי שם
-            </label>
-            <label>
-                <input type="radio" name="searchType" id="searchByTable" > חפש לפי מספר שולחן
-            </label>
+            <select id="searchType">
+                <option value="name">חפש לפי שם</option>
+                <option value="table">חפש לפי מספר שולחן</option>
+            </select>
         </div>
 
         <input type="text" id="nameInput" placeholder="הכנס את שם האורח או מספר שולחן">
         <button onclick="searchGuest()">חפש</button>
+        
+        <!-- Button to display all guests -->
+        <button onclick="displayAllGuests()">הצג את כל האורחים</button>
 
         <div id="result">
             <p id="guestName">שם: </p>
