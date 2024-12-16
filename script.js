@@ -17,7 +17,7 @@ const guests = [
     },
     {
         "name": "אליהו התשבי",
-        "table_number": 5,
+        "table_number": 3,
         "number_of_guests": 1
     }
 ];
