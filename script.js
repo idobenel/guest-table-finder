@@ -25,11 +25,11 @@ function searchGuest() {
     const guestCount = document.getElementById("guestCount");
 
     // Reset result
-    tableNumber.textContent = "Table Number: ";
-    guestCount.textContent = "Number of Guests: ";
+    tableNumber.textContent = "מספר שולחן: ";
+    guestCount.textContent = "מספר אורחים: ";
 
     if (name === "") {
-        alert("Please enter a guest name.");
+        alert("הכנס את שם האורח");
         return;
     }
 
@@ -37,11 +37,11 @@ function searchGuest() {
     const guest = guests.find(g => g.name.toLowerCase() === name.toLowerCase());
 
     if (guest) {
-        tableNumber.textContent = "Table Number: " + guest.table_number;
-        guestCount.textContent = "Number of Guests: " + guest.number_of_guests;
+        tableNumber.textContent = "מספר שולחן: " + guest.table_number;
+        guestCount.textContent = "מספר אורחים: " + guest.number_of_guests;
     } else {
-        tableNumber.textContent = "Table Number: Not Found";
-        guestCount.textContent = "Number of Guests: Not Found";
+        tableNumber.textContent = "לא נמצא מספר שולחן";
+        guestCount.textContent = "לא נמצאו מספר אורחים";
     }
 }
 
