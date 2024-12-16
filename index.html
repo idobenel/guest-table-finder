@@ -10,25 +10,25 @@
     <div class="container">
         <h1>סידור הושבה</h1>
 
-        <!-- Dropdown for selecting search type -->
+        <!-- Search by Name Section -->
         <div>
-            <select id="searchType">
-                <option value="name">חפש לפי שם</option>
-                <option value="table">חפש לפי מספר שולחן</option>
-            </select>
+            <input type="text" id="nameInput" placeholder="הכנס את שם האורח">
+            <button onclick="searchGuest()">חפש</button>
         </div>
 
-        <input type="text" id="nameInput" placeholder="הכנס את שם האורח או מספר שולחן">
-        <button onclick="searchGuest()">חפש</button>
-        
+        <!-- Search by Table Number Section -->
+        <div>
+            <input type="text" id="tableInput" placeholder="הכנס את מספר שולחן">
+            <button onclick="searchByTable()">חפש</button>
+        </div>
+
         <!-- Button to display all guests -->
-        <button onclick="displayAllGuests()">הצג את כל האורחים</button>
-
-        <div id="result">
-            <p id="guestName">שם: </p>
-            <p id="tableNumber">מספר שולחן: </p>
-            <p id="guestCount">מספר אורחים: </p>
+        <div>
+            <button onclick="displayFullList()">הצג את כל הרשימה</button>
         </div>
+
+        <!-- Result Display Area -->
+        <div id="result"></div>
     </div>
 
     <script src="script.js"></script>

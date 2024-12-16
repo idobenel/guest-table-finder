@@ -61,77 +61,68 @@ function searchGuest() {
     }
 }
 
-// Function to search for the guest by name or table number
-function searchGuest() {
-    const name = document.getElementById("nameInput").value.trim();
+// Function to search by table number
+function searchByTable() {
+    const tableNumber = document.getElementById("tableInput").value.trim();
     const resultElement = document.getElementById("result");
-    const guestName = document.getElementById("guestName");
-    const tableNumber = document.getElementById("tableNumber");
-    const guestCount = document.getElementById("guestCount");
-
+    
     // Reset result
-    guestName.textContent = "שם: ";
-    tableNumber.textContent = "מספר שולחן: ";
-    guestCount.textContent = "מספר אורחים: ";
-
-    if (name === "") {
-        alert("הכנס את שם האורח או מספר שולחן");
+    resultElement.innerHTML = "";  // Clear previous results
+    
+    if (tableNumber === "") {
+        alert("הכנס את מספר שולחן");
         return;
     }
 
-    // Get selected search type from dropdown
-    const searchType = document.getElementById("searchType").value;
-    
-    let guest;
+    // Search for the guest by table number
+    const matchingGuests = guests.filter(g => g.table_number === parseInt(tableNumber));
 
-    if (searchType === "name") {
-        // Search by name
-        guest = guests.find(g => g.name.includes(name));
-    } else if (searchType === "table") {
-        // Search by table number
-        const tableNumberSearch = parseInt(name, 10);
-        guest = guests.find(g => g.table_number === tableNumberSearch);
-    }
-
-    if (guest) {
-        guestName.textContent = "שם: " + guest.name;
-        tableNumber.textContent = "מספר שולחן: " + guest.table_number;
-        guestCount.textContent = "מספר אורחים: " + guest.number_of_guests;
+    if (matchingGuests.length > 0) {
+        matchingGuests.forEach(guest => {
+            // Create a new result block for each guest
+            const guestDiv = document.createElement("div");
+            guestDiv.innerHTML = `
+                <p>שם: ${guest.name}</p>
+                <p>מספר שולחן: ${guest.table_number}</p>
+                <p>מספר אורחים: ${guest.number_of_guests}</p>
+                <br><br>
+            `;
+            resultElement.appendChild(guestDiv);  // Append to the result section
+        });
     } else {
-        guestName.textContent = "שם לא נמצא";
-        tableNumber.textContent = "לא נמצא מספר שולחן";
-        guestCount.textContent = "לא נמצאו מספר אורחים";
+        const noMatchDiv = document.createElement("div");
+        noMatchDiv.innerHTML = `
+            <p>לא נמצא אורח עם מספר שולחן זה</p>
+        `;
+        resultElement.appendChild(noMatchDiv);
     }
 }
 
-// Function to display all guests sorted by name or table number
-function displayAllGuests() {
+// Function to display the full sorted list of guests
+function displayFullList() {
     const resultElement = document.getElementById("result");
-    const guestName = document.getElementById("guestName");
-    const tableNumber = document.getElementById("tableNumber");
-    const guestCount = document.getElementById("guestCount");
 
     // Reset result
-    guestName.textContent = "";
-    tableNumber.textContent = "";
-    guestCount.textContent = "";
+    resultElement.innerHTML = "";
 
-    // Sort guests by selected criteria (name or table number)
-    const sortBy = document.getElementById("searchType").value;
-    
-    let sortedGuests;
-    if (sortBy === "name") {
-        // Sort by name (in Hebrew order)
-        sortedGuests = guests.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortBy === "table") {
-        // Sort by table number
-        sortedGuests = guests.sort((a, b) => a.table_number - b.table_number);
-    }
+    // Sort guests by name or by table number
+    const sortedGuests = guests.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        if (nameA < nameB) return -1;  // Sort alphabetically by name
+        if (nameA > nameB) return 1;
+        return a.table_number - b.table_number;  // Fallback to sorting by table number if names are the same
+    });
 
-    // Display all guests
+    // Display the sorted list
     sortedGuests.forEach(guest => {
-        guestName.textContent += `שם: ${guest.name}\n`;
-        tableNumber.textContent += `מספר שולחן: ${guest.table_number}\n`;
-        guestCount.textContent += `מספר אורחים: ${guest.number_of_guests}\n\n`;
+        const guestDiv = document.createElement("div");
+        guestDiv.innerHTML = `
+            <p>שם: ${guest.name}</p>
+            <p>מספר שולחן: ${guest.table_number}</p>
+            <p>מספר אורחים: ${guest.number_of_guests}</p>
+            <br><br>
+        `;
+        resultElement.appendChild(guestDiv);  // Append to the result section
     });
 }
