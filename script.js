@@ -36,9 +36,11 @@ function searchGuest() {
         alert("הכנס את שם האורח");
         return;
     }
+    
+    const normalizedName = name.normalize('NFC');
 
     // Search for the guest
-    const guest = guests.find(g => (g.name).includes(name));
+    const guest = guests.find(g => (g.name.normalize('NFC')).includes(normalizedName));
 
     if (guest) {
         guestName.textContent = "שם: "; + guest.name;
