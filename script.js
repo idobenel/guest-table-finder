@@ -19,37 +19,39 @@ const guests = [
 
 // Function to search for the guest by name
 function searchGuest() {
-    const name = document.getElementById("nameInput").value.trim();
+    const name = document.getElementById("nameInput").value.trim().toLowerCase();  // Ensure case-insensitivity
     const resultElement = document.getElementById("result");
-    const guestName = document.getElementById("guestName");
-    const tableNumber = document.getElementById("tableNumber");
-    const guestCount = document.getElementById("guestCount");
-
-
-    // Reset result
-    guestName.textContent = "שם: ";
-    tableNumber.textContent = "מספר שולחן: ";
-    guestCount.textContent = "מספר אורחים: ";
     
-
+    // Reset result
+    resultElement.innerHTML = "";  // Clear previous results
+    
     if (name === "") {
         alert("הכנס את שם האורח");
         return;
     }
-    
-    const normalizedName = name.normalize('NFC');
 
-    // Search for the guest
-    const guest = guests.find(g => (g.name.normalize('NFC')).includes(normalizedName));
+    // Search for the guest (case insensitive comparison)
+    const matchingGuests = guests.filter(g => g.name.toLowerCase().includes(name));
 
-    if (guest) {
-        guestName.textContent = "שם: " + guest.name;
-        tableNumber.textContent = "מספר שולחן: " + guest.table_number;
-        guestCount.textContent = "מספר אורחים: " + guest.number_of_guests;
+    if (matchingGuests.length > 0) {
+        matchingGuests.forEach(guest => {
+            // Create a new result block for each guest
+            const guestDiv = document.createElement("div");
+            guestDiv.innerHTML = `
+                <p>שם: ${guest.name}</p>
+                <p>מספר שולחן: ${guest.table_number}</p>
+                <p>מספר אורחים: ${guest.number_of_guests}</p>
+                <br><br>
+            `;
+            resultElement.appendChild(guestDiv);  // Append to the result section
+        });
     } else {
-    	guestName.textContent = "שם לא נמצא";
-        tableNumber.textContent = "לא נמצא מספר שולחן";
-        guestCount.textContent = "לא נמצאו מספר אורחים";
+        const noMatchDiv = document.createElement("div");
+        noMatchDiv.innerHTML = `
+            <p>שם לא נמצא</p>
+            <p>לא נמצאו מספר שולחן</p>
+            <p>לא נמצאו מספר אורחים</p>
+        `;
+        resultElement.appendChild(noMatchDiv);
     }
 }
-
