@@ -1,17 +1,17 @@
 // Sample guest data in JSON format
 const guests = [
     {
-        "name": "John Doe",
+        "name": "עידו בן אל",
         "table_number": 1,
         "number_of_guests": 3
     },
     {
-        "name": "Jane Smith",
+        "name": "ביבי נתניהו",
         "table_number": 2,
         "number_of_guests": 4
     },
     {
-        "name": "Alice Johnson",
+        "name": "יוסף טרומפלדור",
         "table_number": 3,
         "number_of_guests": 2
     }
