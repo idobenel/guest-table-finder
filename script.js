@@ -37,7 +37,7 @@ function searchGuest() {
     }
 
     // Search for the guest
-    const guest = guests.find(g => g.name.toLowerCase().includes(name.toLowerCase()));
+    const guest = guests.find(g => g.name.includes(name));
 
     if (guest) {
         db_name.textContent = "שם: "; + guest.name;
