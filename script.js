@@ -1,17 +1,17 @@
 // Sample guest data in JSON format
 const guests = [
     {
-        "name": "ido ben el",
+        "name": "עידו בן אל",
         "table_number": 1,
         "number_of_guests": 3
     },
     {
-        "name": "what now",
+        "name": "ביבי נתניהו",
         "table_number": 2,
         "number_of_guests": 4
     },
     {
-        "name": "hello world",
+        "name": "אליהו הנביא",
         "table_number": 3,
         "number_of_guests": 2
     }
@@ -43,7 +43,7 @@ function searchGuest() {
     const guest = guests.find(g => (g.name.normalize('NFC')).includes(normalizedName));
 
     if (guest) {
-        guestName.textContent = "שם: "; + guest.name;
+        guestName.textContent = "שם: " + guest.name;
         tableNumber.textContent = "מספר שולחן: " + guest.table_number;
         guestCount.textContent = "מספר אורחים: " + guest.number_of_guests;
     } else {
