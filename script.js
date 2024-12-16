@@ -11,7 +11,7 @@ const guests = [
         "number_of_guests": 4
     },
     {
-        "name": "יוסף טרומפלדור",
+        "name": "hello world",
         "table_number": 3,
         "number_of_guests": 2
     }
@@ -37,7 +37,7 @@ function searchGuest() {
     }
 
     // Search for the guest
-    const guest = guests.find(g => g.name.includes(name));
+    const guest = guests.find(g => (g.name).includes(name));
 
     if (guest) {
         db_name.textContent = "שם: "; + guest.name;
